@@ -3,18 +3,17 @@
 namespace Database\Factories;
 
 use App\Models\Loan;
-use App\Models\User;
-use Carbon\Carbon;
+use App\Models\ReceivedRepayment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class LoanFactory extends Factory
+class ReceivedRepaymentFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Loan::class;
+    protected $model = ReceivedRepayment::class;
 
     /**
      * Define the model's default state.
@@ -27,12 +26,10 @@ class LoanFactory extends Factory
 
         return [
             'amount' => $amount,
-            'terms' => $this->faker->randomElement([3, 6]),
-            'outstanding_amount' => $amount,
             'currency_code' => Loan::CURRENCY_VND,
-            'processed_at' => Carbon::now()->subDays($this->faker->numberBetween(1, 30)),
-            'status' => Loan::STATUS_DUE,
-            'user_id' => fn () => User::factory()->create(),
+            'received_at' => $this->faker->date(),
+            'loan_id' => fn () => Loan::factory()->create(),
         ];
     }
 }
+
